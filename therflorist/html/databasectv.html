@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Quản lý khách hàng</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <script src="../js/jquery-3.7.1.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../css/home.css">
+
+      <script src="../js/chitiet.js"></script>
+          
+<script src="../js/splienquan.js"></script>
+
+  <script src="../js/matkhau.js"></script>
+    
+
+    
+</head>
+<body>
+    <!-- Modal đăng nhập quản lý -->
+<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Đăng nhập quản lý</h5>
+      </div>
+      <div class="modal-body">
+        <input type="password" id="adminPassword" class="form-control mb-2" placeholder="Nhập mật khẩu quản lý">
+        <div id="loginError" style="color:red;display:none;">Mật khẩu không đúng!</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-pink" onclick="checkAdminPassword()">Đăng nhập</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+      <div class="container">
+
+        <div style="border-bottom: 1px solid;" class="row ">
+        <div class="col-5 ">
+            <h5 style="font-size: 10px; margin-left: 50px;margin-top: 15px; color: rgb(145, 145, 145);">HOTLINE: 0836 625 426 | 0338 248 250</h5 >
+        </div>
+        <div class="col-4">
+
+        </div>
+        <div class="col-3 d-flex align-items-center ">
+           <a href="https://www.facebook.com/profile.php?id=100090461001710&locale=vi_VN"> <img src="../img/logo/face.jpg" alt="" style="width: 35px;" ></a>
+            <a href="https://www.instagram.com/ther.florist/"><img src="../img/logo/ins.jpg" alt="" style="width: 37px;"></a>
+            <a href="https://www.tiktok.com/@ther.florist?_r=1&_d=secCgYIASAHKAESPgo8t82qJ%2BkNQeZHyKy11K750zNXH7Lj%2F5TB89U3SRTZQLUZ8mbrwz1EMo4YRArcakeef994ZI9mPX%2Bw3BypGgA%3D&_svg=1&checksum=0ebeb58b836b9a608df602ccd8d8eae3d9f7d0eb2b4c8f03ce1114bb2d1d4164&sec_uid=MS4wLjABAAAAhT9wxYa0D3T4zX8mhYlXjREuB2oqqHLoIoZ3lcsOcZ33OrHCvYB3vbule1AygIj5&sec_user_id=MS4wLjABAAAAzZhZQPVnQaRg620nuELnncwa15xPP59JsD0q276hp1ES9ljrAKCjAKrtmrLJQBGv&share_app_id=1180&share_author_id=7400341967823750151&share_link_id=5EB4B44B-29FB-490A-A2D0-6BA87C542668&share_scene=1&sharer_language=vi&social_share_type=5&source=h5_t&timestamp=1751031160&tt_from=copy&u_code=d5gddifg1b1caj&ug_btm=b6880%2Cb5836&user_id=6677854206139401217&utm_campaign=client_share&utm_medium=ios&utm_source=copy"><img src="../img/logo/tik.jpg" alt="" style="width: 42px;"></a>
+           <a href="https://www.threads.com/@ther.florist?igshid=NTc4MTIwNjQ2YQ=="> <img src="../img/logo/thr.jpg" alt="" style="width: 35px;"></a>
+        </div>
+      
+
+
+
+
+      
+        </div>
+          <div class="row g-0 mt-1 " style="background-color: #FBF6F2; height: 110px;" >
+    <div class="col-4">
+        <img style="width: 350px; height: 100px;" src="../img/logo/logo.png" alt="">
+    </div>
+     <div class="col-3"></div>
+    <div class="col-5 d-flex align-items-center justify-content-center ">
+        <form class="w-50 h-25" role="search" onsubmit="return false;">
+    <div class="input-group">
+        <input type="text" class="form-control mt-2" id="search-box" placeholder="Tìm kiếm khách hàng..." aria-label="Tìm kiếm" style="height: 25px; font-size: 9px;">
+        <button type="submit" style="display:none"></button>
+        <img src="../img/nen/meo.png" alt="" style="width: 60px;">
+    </div>
+</form>
+    </div>
+   
+ 
+</div>
+
+
+<div class="row sticky-top" style="border-bottom: 1px solid; background-color:white;">
+  <ul class="nav p-2 ">
+    <li class="nav text-start">
+        <a class="nav-link active" href="../html/databasectv.html">CẦN TƯ VẤN</a>
+           <a class="nav-link" href="../html/databasedtv.html">ĐÃ TƯ VẤN</a>
+            <a class="nav-link" href="../html/cskhvanglai.html">KHÁCH HÀNG VÃNG LAI</a>
+              <a class="nav-link" href="../html/crblog.html">TẠO BÀI VIẾT</a>
+
+       
+         
+    </li>
+   </ul>
+</div>
+
+
+
+
+
+<h2>Đơn hàng theo ngày</h2>
+    <div id="orders-list"></div>
+    <script src="../js/database.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script>
+function renderOrders() {
+    const keyword = $('#search-box').val()?.trim().toLowerCase() || '';
+    const orders = getOrders();
+    // Nhóm theo ngày
+    const grouped = {};
+    orders.forEach(o => {
+        // Lọc theo tên người nhận hoặc người gửi
+        const receiverName = (o.receiverName || '').toLowerCase();
+        const senderName = (o.senderName || '').toLowerCase();
+        if (
+            !keyword ||
+            receiverName.includes(keyword) ||
+            senderName.includes(keyword)
+        ) {
+            if (!grouped[o.createdAt]) grouped[o.createdAt] = [];
+            grouped[o.createdAt].push(o);
+        }
+    });
+    let html = '';
+    Object.keys(grouped).sort((a,b) => b.localeCompare(a)).forEach(date => {
+        html += `<h3 class="text-center">${date}</h3>
+        <div class="d-flex justify-content-center">
+        <table border="1" cellpadding="6" style="width:100%;margin-bottom:20px;" class="table table-bordered table-striped text-center align-middle mx-auto">
+            <tr>
+                <th>Người gửi</th>
+                <th>Điện thoại</th>
+                <th>Người nhận</th>
+                <th>Địa chỉ</th>
+                <th>Tên SP</th>
+                <th>Giá</th>
+                <th>Số lượng</th>
+                <th>Thao tác</th>
+            </tr>`;
+        grouped[date].forEach(o => {
+            html += `<tr>
+                <td>${o.senderName}</td>
+                <td>${o.senderPhone}</td>
+                <td>${o.receiverName}</td>
+                <td>${o.address}</td>
+                <td>${o.productName || ''}</td>
+                <td>${o.productPrice || ''}</td>
+                <td>${o.productQuantity || ''}</td>
+                <td class="d-flex gap-1 justify-content-center">
+                      <button class="btn btn-success btn-sm" onclick="markAsConsulted('${o.id}');renderOrders();">Đã tư vấn</button>
+                    <button class="btn btn-warning btn-sm" onclick="showCancelModal('${o.id}');">Cancel</button>
+                    <button class="btn btn-info btn-sm" onclick="showOrderDetail('${o.id}');">Thông tin chi tiết</button>
+                </td>
+            </tr>`;
+        });
+        html += `</table></div>`;
+    });
+    $('#orders-list').html(html || '<i>Không có đơn hàng nào.</i>');
+}
+renderOrders();
+$('#search-box').on('input', function() {
+    renderOrders();
+});
+</script>
+
+
+
+
+
+
+<div class="row " id="chucuoi" style="border-top: 1px solid; height: 250px;">
+    <div class="col-3" >
+
+        <td><img src="../img/logo/logo.png" alt="" style="width: 100%;"></td>
+        <td><h5 style="margin-top: 15px;">Hotline: 1900 633 045 - 0865 160 360 </h5></td>
+        <td><h5>Email: sales@flowercorner.vn</h5></td>
+        <td><img src="../img/logo/bocongthuong.png" alt=""></td>
+    </div>
+
+
+
+
+
+    
+
+    <div class="col-3">
+        <th><h2>CHĂM SÓC KHÁCH HÀNG</h2></th>
+        <td><h5>Giới thiệu</h5></td>
+        <td><h5>Chính sách vận chuyển</h5> </td>
+        <td><h5>Câu hỏi thường gặp</h5></td>
+        <td><h5>Chính sách hoàn tiền</h5></td>
+        <td><h5>Xử lí khiếu nại</h5></td>
+        <td><h5>Bảo mật thông tin </h5></td>
+        <td> <h5>Hình thức thanh toán</h5></td>
+    </div>
+
+
+
+
+    <div class="col-3">
+        <th><H2>THEO DÕI</H2></th>
+        <a href="https://www.facebook.com/people/TherFlorist/100090461001710/"><td><h5>Facebook</h5></td></a>
+        <a href="https://www.instagram.com/ther.florist/"><td><h5>Instagram</h5></td></a>
+        <a href="https://www.tiktok.com/@ther.florist?_r=1&_d=secCgYIASAHKAESPgo8t82qJ%2BkNQeZHyKy11K750zNXH7Lj%2F5TB89U3SRTZQLUZ8mbrwz1EMo4YRArcakeef994ZI9mPX%2Bw3BypGgA%3D&_svg=1&checksum=0ebeb58b836b9a608df602ccd8d8eae3d9f7d0eb2b4c8f03ce1114bb2d1d4164&sec_uid=MS4wLjABAAAAhT9wxYa0D3T4zX8mhYlXjREuB2oqqHLoIoZ3lcsOcZ33OrHCvYB3vbule1AygIj5&sec_user_id=MS4wLjABAAAAzZhZQPVnQaRg620nuELnncwa15xPP59JsD0q276hp1ES9ljrAKCjAKrtmrLJQBGv&share_app_id=1180&share_author_id=7400341967823750151&share_link_id=5EB4B44B-29FB-490A-A2D0-6BA87C542668&share_scene=1&sharer_language=vi&social_share_type=5&source=h5_t&timestamp=1751031160&tt_from=copy&u_code=d5gddifg1b1caj&ug_btm=b6880%2Cb5836&user_id=6677854206139401217&utm_campaign=client_share&utm_medium=ios&utm_source=copy"><td><h5>Tiktok</h5></td></a>
+        <a href="https://www.threads.com/@ther.florist"><td><h5>Threads</h5></td></a>
+
+        </h5></td>
+    </div>
+
+
+    <div class="col-3"> 
+        <th><h2>SHOP HOA THER FLORIST </h2></th>
+        <td><h4>Cửa hàng chính:</h4><h5> 142 Nguyễn Văn Cừ, Phường Nguyễn Cư Trinh, Quận 1, TP.HCM</h5>
+        </td>
+    </div>
+
+
+
+</div>
+
+
+
+<div class="row fixed-bottom" id="cuoi" style="background-color:#ff6c9f; height: 40px; padding: 5px;">
+    <div class="col-5 text-end" style="border-right: 1px solid; color: white;">
+        <a href="https://m.me/105154285853407" class="d-inline-flex align-items-center justify-content-end" style="text-decoration: none;">
+            <img src="../img/icon/mes.png" alt="" style="width: 30px; margin-right: 8px;">
+            <span style="font-size: 15px; margin-right: 50px;">Messenger</span>
+        </a>
+    </div>
+     <div class="col-4 col-md-2 text-center" style="color: white;">
+        <a href="https://zalo.me/0836625426" class="d-inline-flex align-items-center justify-content-center w-100" style="text-decoration: none;">
+            <img src="../img/icon/zalo.png" alt="" style="width: 30px; margin-right: 8px;">
+            <span class="d-none d-md-inline" style="font-size: 15px;">Zalo</span>
+        </a>
+    </div>
+    <div class="col-5 text-start" style="border-left: 1px solid; color: white;">
+        <a href="" class="d-inline-flex align-items-center justify-content-start" style="text-decoration: none;">
+            <img src="../img/icon/sdt.png" alt="" style="width: 30px; margin-right: 8px; margin-left: 50px;">
+            <span style="font-size: 15px; ">SĐT</span>
+        </a>
+    </div>
+</div>
+
+
+
+    
+   
+    </div>  
+
+    <script>function searchRedirect() {
+    const keyword = document.getElementById('search-box').value.trim();
+    if (keyword) {
+        window.location.href = `timkiem.html?keyword=${encodeURIComponent(keyword)}`;
+    }
+    return false; // Ngăn submit form reload trang
+}</script>
+<!-- Modal Thông tin chi tiết -->
+<div class="modal fade" id="orderDetailModal" tabindex="-1" aria-labelledby="orderDetailModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="orderDetailModalLabel">Thông tin chi tiết đơn hàng</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+      </div>
+      <div class="modal-body" id="order-detail-body">
+        <!-- Nội dung sẽ được render bằng JS -->
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+function showOrderDetail(orderId) {
+    const orders = getOrders();
+    const o = orders.find(x => x.id === orderId);
+    if (!o) return;
+    let html = `
+      <div class="row">
+        <div class="col-md-4">
+          <h6>Sản phẩm</h6>
+          <div><b>Tên sản phẩm:</b> ${o.productName || ''}</div>
+          <div><b>Giá:</b> ${o.productPrice || ''}</div>
+          <div><b>Số lượng:</b> ${o.productQuantity || ''}</div>
+        </div>
+        <div class="col-md-4">
+          <h6>Thông tin người nhận</h6>
+          <div><b>Họ tên:</b> ${o.receiverName}</div>
+          <div><b>Điện thoại:</b> ${o.receiverPhone}</div>
+          <div><b>Địa chỉ:</b> ${o.address}</div>
+          <div><b>Tỉnh/Thành:</b> ${o.city}</div>
+          <div><b>Quận/Huyện:</b> ${o.district}</div>
+          <div><b>Ngày giao:</b> ${o.date}</div>
+          <div><b>Thời gian giao:</b> ${o.time}</div>
+          <div><b>Lời nhắn:</b> ${o.note}</div>
+        </div>
+        <div class="col-md-4">
+          <h6>Thông tin người gửi</h6>
+          <div><b>Họ tên:</b> ${o.senderName}</div>
+          <div><b>Điện thoại:</b> ${o.senderPhone}</div>
+          <div><b>Email:</b> ${o.senderEmail}</div>
+          <div><b>Yêu cầu/lưu ý:</b> ${o.request}</div>
+          <div><b>Giấu thông tin người gửi:</b> ${o.hideSender ? "Có" : "Không"}</div>
+          <div><b>Yêu cầu hóa đơn VAT:</b> ${o.vat ? "Có" : "Không"}</div>
+          <div><b>Mã nhân viên:</b> ${o.staffCode}</div>
+        </div>
+      </div>
+    `;
+    $('#order-detail-body').html(html);
+    $('#orderDetailModal').modal('show');
+}
+</script>
+
+
+
+<style>
+
+</style>
+
+<!-- Modal xác nhận Cancel -->
+<div class="modal fade" id="cancelOrderModal" tabindex="-1" aria-labelledby="cancelOrderModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Xác nhận hủy đơn hàng</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+      </div>
+      <div class="modal-body">
+        <input type="password" id="cancelPassword" class="form-control mb-2" placeholder="Nhập mật khẩu để hủy">
+        <div id="cancelError" style="color:red;display:none;">Mật khẩu không đúng!</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+        <button type="button" class="btn btn-danger" onclick="confirmCancelOrder()">Xác nhận</button>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

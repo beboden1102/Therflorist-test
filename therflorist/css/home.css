@@ -1,0 +1,296 @@
+/* MÀU SẮC HÀI HÒA, NỔI BẬT, KHÔNG XÓA CSS CŨ */
+
+/* Nền tổng thể nhẹ nhàng */
+body {
+    background: linear-gradient(135deg, #fff0fa 0%, #ffe3e3 100%);
+    min-height: 100vh;
+}
+
+/* Container nổi bật, bo góc, bóng nhẹ */
+.container {
+    background: #fff6fa;
+    box-shadow: 0 2px 16px #ffd1ec50;
+    border-radius: 18px;
+    padding: 32px 24px;
+    margin-top: 32px;
+    margin-bottom: 32px;
+    max-width: 980px;
+}
+
+/* Card blog */
+.card {
+    background: #fff6fa !important;
+    border: 1px solid #ffb6d5 !important;
+    box-shadow: 0 2px 12px #ffd1ec60;
+    border-radius: 16px !important;
+    transition: all 0.2s;
+}
+.card:hover {
+    background: #ffe3f0 !important;
+    border-color: #ff69b4 !important;
+    box-shadow: 0 4px 24px #ff69b480;
+    transform: translateY(-2px) scale(1.02);
+}
+
+/* Nút blog */
+.btn-success, .btn-warning, .btn-info, .btn-danger {
+    color: #fff !important;
+    font-weight: bold;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px #ffd1ec60;
+    border: none;
+    padding: 8px 22px;
+    font-size: 1rem;
+}
+.btn-success { background: linear-gradient(90deg, #ff69b4 0%, #ffb6d5 100%) !important; }
+.btn-warning { background: linear-gradient(90deg, #ffb347 0%, #ffd580 100%) !important; }
+.btn-info    { background: linear-gradient(90deg, #69b4ff 0%, #b6d5ff 100%) !important; }
+.btn-danger  { background: linear-gradient(90deg, #ff6c6c 0%, #ffd1d1 100%) !important; }
+.btn-success:hover { background: #e055a1 !important; }
+.btn-warning:hover { background: #ff9800 !important; }
+.btn-info:hover    { background: #3b8ed7 !important; }
+.btn-danger:hover  { background: #e05555 !important; }
+
+/* Badge danh mục */
+.badge.bg-light.text-dark {
+    background: linear-gradient(90deg, #ffb6d5 0%, #ffe3e3 100%) !important;
+    color: #ff69b4 !important;
+    font-weight: bold;
+    border-radius: 12px;
+    padding: 6px 18px;
+    font-size: 1rem;
+    box-shadow: 0 2px 8px #ffd1ec60;
+}
+
+/* Tiêu đề blog */
+h1, h2, h5.fw-bold {
+    color: #ff69b4 !important;
+    text-shadow: 0 2px 8px #ffd1ec60;
+}
+
+/* Link blog nổi bật */
+a.nav-link.active, a.nav-link:hover {
+    color: #ff69b4 !important;
+    text-shadow: 0 2px 8px #ffd1ec60;
+}
+
+/* Số lượng bài viết */
+.card .text-secondary small {
+    color: #ff69b4 !important;
+    font-weight: bold;
+}
+
+/* Tăng màu cho các icon mạng xã hội nhưng KHÔNG phát sáng màu hồng cho hình ảnh blog */
+img {
+    filter: none !important;
+    box-shadow: none !important;
+}
+
+/* Nếu muốn icon mạng xã hội phát sáng, hãy dùng class riêng cho icon */
+.icon-social {
+    filter: drop-shadow(0 2px 8px #ff69b4aa);
+}
+
+/* Blog detail hình ảnh giữ màu tự nhiên, không phát sáng */
+.blogtt-detail-img {
+    box-shadow: 0 2px 8px #eee !important;
+    border: 2px solid #ffb6d5;
+}
+
+/* Blog detail tiêu đề */
+#blog-detail h2 {
+    color: #ff69b4 !important;
+    text-shadow: 0 2px 8px #ffd1ec60;
+}
+
+/* Blog detail phụ đề */
+#blog-detail h5 {
+    color: #888 !important;
+}
+
+/* Blog detail badge */
+#blog-detail .badge {
+    background: #ffb6d5 !important;
+    color: #fff !important;
+}
+
+/* Blog content */
+.blog-content {
+    font-size: 1.08rem;
+    line-height: 1.8;
+    color: #222;
+    word-break: break-word;
+}
+
+/* Sidebar bài viết mới */
+.bg-white.rounded-4.shadow-sm.p-3 {
+    background: #fff6fa !important;
+    border-radius: 16px !important;
+    box-shadow: 0 2px 12px #ffd1ec60 !important;
+}
+
+.form-control:focus {
+        border-color: #ff69b4 !important;   
+        box-shadow: 0 0 0 0.2rem #ffd1ec80 !important; 
+        background-color: #fff0fa !important; 
+    }
+    .form-label.required:after {
+    content: " *";
+    color: #ff69b4;
+    font-weight: bold;
+}
+.btn-pink {
+    background: #ff69b4 !important;
+    color: #fff !important;
+    border: none;
+}
+.btn-pink:hover {
+    background: #e055a1 !important;
+}
+.nav-link{
+    font-size: 13px;
+     color: #646464;
+     font-weight: bold;
+    
+}
+:hover.nav-link{
+    color: #ff69b4;
+}
+.nav-link.active {
+   
+    color: #ff69b4 !important;
+    
+}
+.card-img-top {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+#cuoi a{
+    text-decoration: none;
+  color: white;
+}
+#chucuoi h5{
+    font-size: 11px;
+    color: #767474;
+
+}
+#chucuoi img{
+    width: 85%;
+}
+#cuoi a:hover{
+    
+    color: #3b34f7;
+}
+#chucuoi h2{
+font-size: 15px;
+font-weight: bold;
+margin-top: 30px;
+}
+#chucuoi a{
+    text-decoration: none;
+}
+#chucuoi h5:hover{
+    
+    color:#ff69b4;
+}
+#chucuoi h4{
+  font-size: 11px;
+  font-weight: bold;
+
+}
+.marquee-container {
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  position: relative;
+  height: 50px;
+}
+.marquee-content {
+  display: inline-block;
+  white-space: nowrap;
+  will-change: transform;
+  animation: marqueeMove 12s linear infinite;
+}
+.marquee-text {
+  display: inline-block;
+  white-space: nowrap;
+  /* KHÔNG dùng animation ở đây! */
+}
+@keyframes marqueeMove {
+  0%   { transform: translateX(100%);}
+  100% { transform: translateX(-100%);}
+}
+/* KHÔNG dùng animation cho .marquee-text hoặc img */
+.btn-success, .btn-warning, .btn-info, .btn-danger {
+    color: #fff !important;
+}
+.blogtt-sidebar-img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 8px;
+    flex-shrink: 0;
+    box-shadow: 0 2px 8px #eee;
+}
+.blogtt-sidebar-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 12px;
+    margin-bottom: 12px;
+    min-height: 60px;
+}
+.blogtt-sidebar-title {
+    font-weight: 500;
+    color: #222;
+    text-decoration: none;
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 1rem;
+}
+.blogtt-sidebar-date {
+    font-size: 0.95rem;
+    color: #888;
+}
+#recent-blogs {
+    padding-right: 8px;
+}
+.blog-content {
+    font-size: 1.08rem;
+    line-height: 1.8;
+    color: #222;
+    word-break: break-word;
+}
+.blogtt-detail-img {
+    width: 100%;
+    max-width: 500px;
+    height: 260px;
+    object-fit: cover;
+    border-radius: 12px;
+    margin: 0 auto 18px auto;
+    display: block;
+    box-shadow: 0 2px 8px #eee;
+}
+#blog-detail h2 {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #222;
+}
+#blog-detail h5 {
+    font-size: 1.1rem;
+    color: #666;
+    margin-bottom: 12px;
+}
+#blog-detail .badge {
+    font-size: 1rem;
+    background: #e6f4ea;
+    color: #ffffff;
+    padding: 6px 16px;
+    border-radius: 8px;
+    
+}

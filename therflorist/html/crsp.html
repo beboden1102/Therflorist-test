@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Tạo sản phẩm</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/home.css">
+    <script src="../js/jquery-3.7.1.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+   
+</head>
+<body>
+<div class="container">
+    <div style="border-bottom: 1px solid;" class="row ">
+        <div class="col-5 ">
+            <h5 style="font-size: 10px; margin-left: 50px;margin-top: 15px; color: rgb(145, 145, 145);">HOTLINE: 0836 625 426 | 0338 248 250</h5>
+        </div>
+        <div class="col-4"></div>
+        <div class="col-3 d-flex align-items-center ">
+            <a href="https://www.facebook.com/profile.php?id=100090461001710&locale=vi_VN"><img src="../img/logo/face.jpg" alt="" style="width: 35px;" ></a>
+            <a href="https://www.instagram.com/ther.florist/"><img src="../img/logo/ins.jpg" alt="" style="width: 37px;"></a>
+            <a href="https://www.tiktok.com/@ther.florist"><img src="../img/logo/tik.jpg" alt="" style="width: 42px;"></a>
+            <a href="https://www.threads.com/@ther.florist"><img src="../img/logo/thr.jpg" alt="" style="width: 35px;"></a>
+        </div>
+    </div>
+
+    <div class="row g-0 mt-1" style="background-color: #FBF6F2; height: 110px;">
+        <div class="col-4">
+            <img style="width: 350px; height: 100px;" src="../img/logo/logo.png" alt="">
+        </div>
+        <div class="col-3"></div>
+        <div class="col-5 d-flex align-items-center justify-content-center ">
+            <form class="w-50 h-25" role="search" onsubmit="return false;">
+                <div class="input-group">
+                    <input type="text" class="form-control mt-2" id="search-box" placeholder="Tìm kiếm sản phẩm..." aria-label="Tìm kiếm sản phẩm" style="height: 25px; font-size: 9px;">
+                    <button type="submit" style="display:none"></button>
+                    <img src="../img/nen/meo.png" alt="" style="width: 60px;">
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="row sticky-top" style="border-bottom: 1px solid; background-color:white;">
+        <ul class="nav p-2 ">
+            <li class="nav text-start">
+                <a class="nav-link" href="../html/databasectv.html">CẦN TƯ VẤN</a>
+                <a class="nav-link" href="../html/databasedtv.html">ĐÃ TƯ VẤN</a>
+                <a class="nav-link" href="../html/cskhvanglai.html">KHÁCH HÀNG VÃNG LAI</a>
+                <a class="nav-link active" href="../html/crsp.html">TẠO SẢN PHẨM</a>
+            </li>
+        </ul>
+    </div>
+
+    <button id="open-create-product" class="btn btn-primary mb-3 mt-3">Tạo sản phẩm</button>
+    <div id="product-list"></div>
+
+    <!-- Modal tạo sản phẩm -->
+    <div class="modal fade" id="createProductModal" tabindex="-1" aria-labelledby="createProductModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="createProductModalLabel">Tạo sản phẩm mới</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-2">
+                        <input type="text" id="product-name" class="form-control" placeholder="Tên sản phẩm">
+                    </div>
+                    <div class="mb-2">
+                        <input type="text" id="product-price" class="form-control" placeholder="Giá gốc">
+                    </div>
+                    <div class="mb-2">
+                        <input type="text" id="product-discount" class="form-control" placeholder="Giá giảm (nếu có)">
+                    </div>
+                    <div class="mb-2">
+                        <input type="text" id="product-img" class="form-control" placeholder="Link ảnh sản phẩm">
+                    </div>
+                    <div class="mb-2">
+                        <textarea id="product-desc" class="form-control" placeholder="Mô tả sản phẩm" rows="3"></textarea>
+                    </div>
+                    <div class="mb-2">
+                        <label class="form-label">Danh mục sản phẩm</label>
+                        <div>
+                            <label><input type="checkbox" class="productCategory" value="giam30"> Hoa sinh nhật</label>
+                            <label style="margin-left:20px;"><input type="checkbox" class="productCategory" value="datnhieu"> Hoa tốt nghiệp</label>
+                            <label style="margin-left:20px;"><input type="checkbox" class="productCategory" value="all"> Tất cả</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                    <button type="button" class="btn btn-success" id="save-product">Lưu sản phẩm</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal chỉnh sửa sản phẩm -->
+    <div class="modal fade" id="editProductModal" tabindex="-1" aria-labelledby="editProductModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="editProductModalLabel">Chỉnh sửa sản phẩm</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+          </div>
+          <div class="modal-body">
+            <input type="hidden" id="edit-product-id">
+            <div class="mb-2">
+                <input type="text" id="edit-product-name" class="form-control" placeholder="Tên sản phẩm">
+            </div>
+            <div class="mb-2">
+                <input type="text" id="edit-product-price" class="form-control" placeholder="Giá gốc">
+            </div>
+            <div class="mb-2">
+                <input type="text" id="edit-product-discount" class="form-control" placeholder="Giá giảm (nếu có)">
+            </div>
+            <div class="mb-2">
+                <input type="text" id="edit-product-img" class="form-control" placeholder="Link ảnh sản phẩm">
+            </div>
+            <div class="mb-2">
+                <textarea id="edit-product-desc" class="form-control" placeholder="Mô tả sản phẩm" rows="3"></textarea>
+            </div>
+            <div class="mb-2">
+                <label class="form-label">Danh mục sản phẩm</label>
+                <div>
+                    <label><input type="checkbox" class="editProductCategory" value="giam30"> Hoa sinh nhật</label>
+                    <label style="margin-left:20px;"><input type="checkbox" class="editProductCategory" value="datnhieu"> Hoa tốt nghiệp</label>
+                    <label style="margin-left:20px;"><input type="checkbox" class="editProductCategory" value="all"> Tất cả</label>
+                </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+            <button type="button" class="btn btn-success" id="save-edit-product">Lưu thay đổi</button>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+<script src="../js/crsp.js"></script>
+</body>
+</html>
